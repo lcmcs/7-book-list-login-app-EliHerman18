@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Library</h2>
+    <ul>
+        {% for book in books %}
+            <li><strong>{{ book.title }}</strong> by {{ book.author }} ({{ book.year }})</li>
+        {% endfor %}
+    </ul>
+
+
+
+    <h3>Add a New Book</h3>
+    <form method="POST" action="{{ url_for('books') }}">
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=40) }}
+            {% for error in form.title.errors %}
+                <span class="error-text">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.author.label }}<br>
+            {{ form.author(size=40) }}
+            {% for error in form.author.errors %}
+                <span class="error-text">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.year.label }}<br>
+            {{ form.year(size=10) }}
+            {% for error in form.year.errors %}
+                <span class="error-text">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
